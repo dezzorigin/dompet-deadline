@@ -1,0 +1,9 @@
+target/
+build/
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+.idea/
+*.iml
+.DS_Store
