@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Siapkan JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+          cache: maven
+      - name: Jalankan unit test
+        run: mvn -B test
+      - name: Bangun JAR
+        run: mvn -B package -DskipTests
+      - name: Simpan JAR sebagai artefak
+        uses: actions/upload-artifact@v4
+        with:
+          name: dompet-deadline-jar
+          path: target/dompet-deadline.jar
